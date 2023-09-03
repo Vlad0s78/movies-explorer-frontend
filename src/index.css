@@ -2,25 +2,51 @@
 @import url("./vendor/fonts/inter.css");
 @import url("./components/Header/Header.css");
 @import url("./components/Navigation/Navigation.css");
+@import url("./components/Promo/Promo.css");
+@import url("./components/AboutProject/AboutProject.css");
+@import url("./components/HeadingBlock/HeadingBlock.css");
+@import url("./components/Techs/Techs.css");
+@import url("./components/AboutMe/AboutMe.css");
+@import url("./components/Portfolio/Portfolio.css");
+@import url("./components/Footer/Footer.css");
+@import url("./components/Movies/Movies.css");
+@import url("./components/SearchForm/SearchForm.css");
+@import url("./components/FilterCheckBox/FilterCheckBox.css");
+@import url("./components/MoviesCardList/MoviesCardList.css");
+@import url("./components/MoviesCard/MoviesCard.css");
+@import url("./components/AuthForm/AuthForm.css");
+@import url("./components/Profile/Profile.css");
+@import url("./components/NotFound/NotFound.css");
 
-.body {
+html {
+  background-color: #202020;
+  scroll-behavior: smooth;
+}
+
+.page {
+  max-width: 1280px;
   min-width: 320px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 0;
   background-color: #202020;
-  color: #FFF;
-  font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+  font-family: "Inter", Arial, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+}
+
+.body {
+  background-color: #202020;
 }
 
 .link {
   transition: opacity 0.2s ease-in;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .link:hover {
@@ -30,6 +56,7 @@
 
 .button {
   transition: opacity 0.2s ease-in;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .button:hover {

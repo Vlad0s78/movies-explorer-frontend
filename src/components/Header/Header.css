@@ -20,7 +20,7 @@
   margin-left: 70px;
 }
 
-.header__landing {
+.header_landing {
   background-color: #073042;
 }
 
@@ -55,11 +55,9 @@
 
 @media screen and (max-width: 1279px) {
   .header {
-      position: relative;
+    position: relative;
   }
-}
 
-@media screen and (max-width: 1279px) {
   .header__container {
     margin-right: 30px;
     margin-left: 30px;
@@ -71,18 +69,20 @@
     margin-right: 14px;
     margin-left: 14px;
   }
-}
 
-@media screen and (max-width: 767px) {
   .header__link-signup {
     font-size: 10px;
   }
-}
 
-@media screen and (max-width: 767px) {
   .header__link-signin {
     font-size: 10px;
     width: 54px;
     height: 26px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header__auth-container {
+    gap: 14px;
   }
 }

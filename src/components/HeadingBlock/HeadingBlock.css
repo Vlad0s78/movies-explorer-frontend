@@ -1,0 +1,30 @@
+.header-section {
+  width: 100%;
+  margin: 110px 0 0 0;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #dadada;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 1279px) {
+  .header-section {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header-section {
+    margin: 70px 0 0 0;
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .header-section_type_techs {
+    border-color: #000;
+  }
+}

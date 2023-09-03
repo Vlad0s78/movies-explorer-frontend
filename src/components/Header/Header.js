@@ -8,7 +8,7 @@ function Header({ isAuth = false }) {
   const isLandingPage = location.pathname === "/";
 
   return (
-    <header className={`header ${isLandingPage ? "header__landing" : ""}`}>
+    <header className={`header ${isLandingPage ? "header_landing" : ""}`}>
       <div className="header__container">
         <Link className="header__logo-link link" to="/">
           <img src={headerLogo} alt="Логотип проекта" className="header__logo" />
