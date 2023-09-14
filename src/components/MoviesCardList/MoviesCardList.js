@@ -4,12 +4,19 @@ import { useLocation } from "react-router-dom";
 
 function MoviesCardList({ movies, onClick, savedMovies, searchText }) {
   const location = useLocation();
-
   const moviesPage = location.pathname === "/movies";
   const [initialCount, setInitialCount] = useState(3);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const isSavedPage = location.pathname === "/saved-movies";
+
+  const resultsMessage = () => {
+    if (isSavedPage) {
+      return searchText ? "Ничего не найдено." : "Сохраненных фильмов нет";
+    } else {
+      return searchText ? "Ничего не найдено." : "Нужно ввести ключевое слово";
+    }
+  };
 
   const handleWindowResize = useCallback(() => {
     if (windowWidth !== window.innerWidth) {
@@ -72,19 +79,21 @@ function MoviesCardList({ movies, onClick, savedMovies, searchText }) {
   return (
     <section className="movies">
       {movies.length === 0 ? (
-        <p className="movies__message">{searchText ? "Ничего не найдено." : "Нужно ввести ключевое слово"}</p>
+        <p className="movies__message">{resultsMessage()}</p>
       ) : (
-        <ul className="movies__list">
-          {movies.slice(0, initialCount).map((movie) => {
-            return <MoviesCard card={movie} key={isSavedPage ? movie._id : movie.id} onClick={onClick} isLike={handleIsLike(movie)} />;
-          })}
-        </ul>
+        <>
+          <ul className="movies__list">
+            {movies.slice(0, initialCount).map((movie) => {
+              return <MoviesCard card={movie} key={isSavedPage ? movie._id : movie.id} onClick={onClick} isLike={handleIsLike(movie)} />;
+            })}
+          </ul>
+          {moviesPage && initialCount < movies.length ? (
+            <button className="movies__button-more button" onClick={adjustInitialCount}>
+              Ещё
+            </button>
+          ) : null}
+        </>
       )}
-      {moviesPage ? (
-        <button className="movies__button-more button" onClick={adjustInitialCount}>
-          Ещё
-        </button>
-      ) : null}
     </section>
   );
 }

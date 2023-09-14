@@ -4,7 +4,18 @@ function InputField({ label, type, name, placeholder, autocomplete, required, er
   return (
     <div className="auth__field">
       <label className="auth__label">{label}</label>
-      <input className="auth__input" type={type} name={name} placeholder={placeholder} autoComplete={autocomplete} required={required} onChange={onChange}  minLength={minLength} maxLength={maxLength} value={value}/>
+      <input
+        className="auth__input"
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        autoComplete={autocomplete}
+        required={required}
+        onChange={onChange}
+        minLength={minLength}
+        maxLength={maxLength}
+        value={value}
+      />
       {error && <span className="auth__input-error">{error}</span>}
     </div>
   );
