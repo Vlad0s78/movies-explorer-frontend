@@ -19,7 +19,7 @@
 .movie-card__name {
   text-align: left;
   color: #fff;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 18px;
   padding: 0;
@@ -37,7 +37,7 @@
 }
 
 .movie-card__photo {
-  max-height: 200px;
+  height: 200px;
   object-fit: cover;
   width: 100%;
 }

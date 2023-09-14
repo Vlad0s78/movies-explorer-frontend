@@ -3,9 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import InputField from "../InputField/InputField";
 
-function AuthForm(props) {
+function AuthForm({ onSubmit, onChange, errors, isValid, values, errorGlobalMessage, resetErrorGlobalMessage, ...props }) {
+
   const location = useLocation();
-  const isSignUpPage = location.pathname === "/sign-up";
+  const isSignUpPage = location.pathname === "/signup";
 
   return (
     <section className="auth">
@@ -14,19 +15,61 @@ function AuthForm(props) {
           <img src={logo} alt="Логотип проекта" />
         </Link>
         <h1 className="auth__title">{props.title}</h1>
-        <form className="auth__form" onSubmit={props.onSubmit}>
+        <form className="auth__form" onSubmit={onSubmit} >
           <div className="auth__form-container">
-            {isSignUpPage && <InputField label="Имя" type="text" id="name" placeholder="Виталий" autocomplete="off" required />}
-            <InputField label="E-mail" type="email" id="email" placeholder="pochta@yandex.ru" autocomplete="off" required />
-            <InputField label="Пароль" type="password" id="password" placeholder="••••••••••••••" autocomplete="off" required error={isSignUpPage && "Что-то пошло не так..."} />
+            {isSignUpPage && (
+              <InputField
+                label="Имя"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Имя"
+                autoComplete="off"
+                minLength="2"
+                maxLength="40"
+                onChange={onChange}
+                required
+                error={errors.name}
+                value={values.name || ""}
+              />
+            )}
+            <InputField
+              label="E-mail"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="pochta@yandex.ru"
+              autoComplete="off"
+              minLength="4"
+              maxLength="40"
+              required
+              onChange={onChange}
+              error={errors.email}
+              value={values.email || ""}
+            />
+            <InputField
+              label="Пароль"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="••••••••••••••"
+              autoComplete="off"
+              minLength="6"
+              maxLength="20"
+              required
+              onChange={onChange}
+              error={errors.password}
+              value={values.password || ""}
+            />
           </div>
           <div className="auth__form-container-link">
-            <button className="auth__button button" type="submit">
+            <span className="auth__error">{errorGlobalMessage}</span>
+            <button className={`auth__button button ${!isValid ? "auth__button_disabled" : ""}`} type="submit" disabled={!isValid}>
               {props.buttonText}
             </button>
             <div className="auth__container-link">
               <p className="auth__link-text">{props.linkDescription}</p>
-              <Link to={props.linkUrl} replace className="auth__link link">
+              <Link to={props.linkUrl} replace onClick={resetErrorGlobalMessage} className="auth__link link">
                 {props.linkText}
               </Link>
             </div>
