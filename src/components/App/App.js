@@ -42,13 +42,15 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    getSavedMovies()
-      .then((movies) => {
-        setSavedMovies(movies);
-      })
-      .catch((error) => {
-        console.error("Ошибка при загрузке сохраненных фильмов:", error);
-      });
+    if (isLoggedIn) {
+      getSavedMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch((error) => {
+          console.error("Ошибка при загрузке сохраненных фильмов:", error);
+        });
+    }
   }, []);
 
   const handleRegister = (data) => {
