@@ -1,4 +1,4 @@
-const BASE_URL = "https://filmhub.nomoreparties.co";
+const BASE_URL = "https://api.filmhub.nomoreparties.co";
 
 function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`ОшибОЧКА: ${res.status}`);
