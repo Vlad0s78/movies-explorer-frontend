@@ -180,7 +180,7 @@ function App() {
             />
 
             <Route
-              path="/not-found"
+              path="*"
               element={
                 <>
                   <NotFound />
