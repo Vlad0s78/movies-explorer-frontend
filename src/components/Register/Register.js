@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import { useFormWithValidation } from "../../hooks/useForm";
 
-function Register({ onRegister, errorGlobalMessage, resetErrorGlobalMessage }) {
+function Register({ onRegister, errorGlobalMessage, resetErrorGlobalMessage, isLoggedIn }) {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   const handleSubmit = (e) => {

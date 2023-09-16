@@ -83,9 +83,13 @@ function MoviesCardList({ movies, onClick, savedMovies, searchText }) {
       ) : (
         <>
           <ul className="movies__list">
-            {movies.slice(0, initialCount).map((movie) => {
-              return <MoviesCard card={movie} key={isSavedPage ? movie._id : movie.id} onClick={onClick} isLike={handleIsLike(movie)} />;
-            })}
+            {isSavedPage
+              ? movies.map((movie) => {
+                  return <MoviesCard card={movie} key={isSavedPage ? movie._id : movie.id} onClick={onClick} isLike={handleIsLike(movie)} />;
+                })
+              : movies.slice(0, initialCount).map((movie) => {
+                  return <MoviesCard card={movie} key={isSavedPage ? movie._id : movie.id} onClick={onClick} isLike={handleIsLike(movie)} />;
+                })}
           </ul>
           {moviesPage && initialCount < movies.length ? (
             <button className="movies__button-more button" onClick={adjustInitialCount}>

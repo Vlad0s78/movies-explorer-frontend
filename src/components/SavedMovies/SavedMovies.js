@@ -14,16 +14,18 @@ function SavedMovies({ isLoggedIn, filterByName, savedMovies, deleteMovies }) {
   };
 
   useEffect(() => {
+    const test = filterByName(savedMovies, searchText);
     if (savedMovies) {
-      setFilteredMovies(isShortMovies ? filterShortMovies(savedMovies) : savedMovies);
+      setFilteredMovies(isShortMovies ? filterShortMovies(test) : test);
     }
     return;
   }, [savedMovies, isShortMovies]);
 
   const searchByMyMovies = (inputText) => {
-    setSearchText(inputText);
     if (savedMovies) {
+      setSearchText("");
       setFilteredMovies(filterByName(savedMovies, inputText));
+      setSearchText(inputText);
     }
   };
 

@@ -4,14 +4,15 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
-
 import { getAllMovies } from "../../utils/MoviesApi";
 
 function Movies({ isLoggedIn, filterByName, myMovies, savedMovies, deleteMovies }) {
   const [filterMovies, setFilterMovies] = useState([]);
-  const [isShortMovies, setIsShortMovies] = useState(false);
+  const checkIsShotMovies = JSON.parse(localStorage.getItem("isShortMovies")) ?? false;
+  const [isShortMovies, setIsShortMovies] = useState(checkIsShotMovies);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const moviesAll = JSON.parse(localStorage.getItem("allMovies")) ?? [];
 
   const filterShortMovies = (movies) => {
     return movies.filter((movie) => movie.duration <= 40);
@@ -25,7 +26,7 @@ function Movies({ isLoggedIn, filterByName, myMovies, savedMovies, deleteMovies 
         setIsShortMovies(JSON.parse(localStorage.getItem("isShortMovie")));
       }
     }
-  }, [isShortMovies]);
+  }, [isShortMovies, searchText, isLoggedIn]);
 
   const handleCheckboxChange = () => {
     setIsShortMovies(!isShortMovies);
@@ -40,26 +41,32 @@ function Movies({ isLoggedIn, filterByName, myMovies, savedMovies, deleteMovies 
     localStorage.setItem("isShortMovie", !isShortMovies);
   };
 
-  const filterAllMovies = (movies, text) => {
+  const filterAllMovies = (movies, text, check) => {
     const filteredMovies = filterByName(movies, text);
     localStorage.setItem("filteredMovies", JSON.stringify(filteredMovies));
-    setFilterMovies(filteredMovies);
+    setFilterMovies(check ? filterShortMovies(filteredMovies) : filteredMovies);
   };
 
-  const searchMovie = (text) => {
+  const searchMovie = (text, isShortMovies) => {
     setIsLoading(true);
     setSearchText(text);
-    getAllMovies()
-      .then((data) => {
-        localStorage.setItem("allMovies", JSON.stringify(data));
-        filterAllMovies(data, text);
-      })
-      .catch((error) => {
-        console.error("Ошибка при загрузке фильмов:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (!moviesAll.length) {
+      getAllMovies()
+        .then((data) => {
+          localStorage.setItem("allMovies", JSON.stringify(data));
+          filterAllMovies(data, text, isShortMovies);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Ошибка при загрузке фильмов:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      filterAllMovies(moviesAll, text, isShortMovies);
+      setIsLoading(false);
+    }
     localStorage.setItem("isShortMovie", isShortMovies);
     localStorage.setItem("textSearch", text);
   };

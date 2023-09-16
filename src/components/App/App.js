@@ -9,7 +9,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { getSavedMovies } from "../../utils/MainApi";
 import * as mainApi from "../../utils/MainApi";
@@ -51,12 +51,13 @@ function App() {
           console.error("Ошибка при загрузке сохраненных фильмов:", error);
         });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const handleRegister = (data) => {
     mainApi
       .register(data)
       .then((infoUser) => {
+        setIsLoggedIn(true);
         setCurrentUser(infoUser);
         handleLogin(data);
         navigate("/movies");
@@ -127,7 +128,8 @@ function App() {
     mainApi
       .deleteCard(id)
       .then(({ _id: delId }) => {
-        setSavedMovies(savedMovies.filter(({ _id }) => _id !== delId));
+        const resultsSavedMovies = savedMovies.filter(({ _id }) => _id !== delId);
+        setSavedMovies(resultsSavedMovies);
       })
       .catch((error) => {
         console.error("Ошибка:", error);
@@ -159,19 +161,17 @@ function App() {
             <Route
               path="/signup"
               element={
-                <>
-                  <Register onRegister={handleRegister} errorGlobalMessage={errorGlobalMessage} resetErrorGlobalMessage={resetErrorGlobalMessage} />
-                </>
+                isLoggedIn ? (
+                  <Navigate to="/movies" />
+                ) : (
+                  <Register onRegister={handleRegister} errorGlobalMessage={errorGlobalMessage} resetErrorGlobalMessage={resetErrorGlobalMessage} isLoggedIn={isLoggedIn} />
+                )
               }
             />
 
             <Route
               path="/signin"
-              element={
-                <>
-                  <Login onLogin={handleLogin} errorGlobalMessage={errorGlobalMessage} resetErrorGlobalMessage={resetErrorGlobalMessage} />
-                </>
-              }
+              element={isLoggedIn ? <Navigate to="/movies" /> : <Login onLogin={handleLogin} errorGlobalMessage={errorGlobalMessage} resetErrorGlobalMessage={resetErrorGlobalMessage} />}
             />
 
             <Route

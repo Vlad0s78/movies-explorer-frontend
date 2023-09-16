@@ -8,13 +8,23 @@ function Profile({ onSignout, isLoggedIn, onUpdateUser, updateProfileMessage }) 
   const currentUser = useContext(CurrentUserContext);
   const { values, errors, handleChange, isValid, resetForm } = useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
+  const [isDataChanged, setIsDataChanged] = useState(false);
 
   useEffect(() => {
     resetForm({
       name: currentUser.name || "",
       email: currentUser.email || "",
     });
+    setIsDataChanged(false);
   }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    if (values.name !== currentUser.name || values.email !== currentUser.email) {
+      setIsDataChanged(true);
+    } else {
+      setIsDataChanged(false);
+    }
+  }, [currentUser, values]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -72,6 +82,7 @@ function Profile({ onSignout, isLoggedIn, onUpdateUser, updateProfileMessage }) 
               type="email"
               minLength="2"
               maxLength="30"
+              pattern="^[a-zA-Z0-9+_.\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,4}$"
               value={values.email}
               onChange={handleInputChange}
               disabled={!isEditing}
@@ -86,7 +97,12 @@ function Profile({ onSignout, isLoggedIn, onUpdateUser, updateProfileMessage }) 
           </span>
         )}
         {isEditing ? (
-          <button type="button" className={`profile__button-save button ${!isValid ? "profile__button-save_disabled" : ""}`} onClick={handleSaveClick} disabled={!isValid}>
+          <button
+            type="button"
+            className={`profile__button-save button ${!isValid || !isDataChanged ? "profile__button-save_disabled" : ""}`}
+            onClick={handleSaveClick}
+            disabled={!isValid || !isDataChanged}
+          >
             Сохранить
           </button>
         ) : (
