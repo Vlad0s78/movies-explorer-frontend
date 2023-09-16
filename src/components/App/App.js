@@ -179,14 +179,7 @@ function App() {
               element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onSignout={handleSignout} onUpdateUser={handleUpdateUser} updateProfileMessage={updateProfileMessage} />}
             />
 
-            <Route
-              path="*"
-              element={
-                <>
-                  <NotFound />
-                </>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
