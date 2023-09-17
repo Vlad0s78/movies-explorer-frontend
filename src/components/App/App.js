@@ -57,7 +57,6 @@ function App() {
     mainApi
       .register(data)
       .then((infoUser) => {
-        setIsLoggedIn(true);
         setCurrentUser(infoUser);
         handleLogin(data);
         navigate("/movies");
