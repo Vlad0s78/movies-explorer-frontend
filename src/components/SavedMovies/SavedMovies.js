@@ -22,10 +22,14 @@ function SavedMovies({ isLoggedIn, filterByName, savedMovies, deleteMovies }) {
   }, [savedMovies, isShortMovies]);
 
   const searchByMyMovies = (inputText) => {
-    if (savedMovies) {
-      setSearchText("");
-      setFilteredMovies(filterByName(savedMovies, inputText));
-      setSearchText(inputText);
+    if (inputText) {
+      if (savedMovies) {
+        setSearchText("");
+        setFilteredMovies(isShortMovies ? filterShortMovies(filterByName(savedMovies, inputText)) : filterByName(savedMovies, inputText));
+        setSearchText(inputText);
+      }
+    } else {
+      setFilteredMovies([]);
     }
   };
 

@@ -50,25 +50,31 @@ function Movies({ isLoggedIn, filterByName, myMovies, savedMovies, deleteMovies 
   const searchMovie = (text, isShortMovies) => {
     setIsLoading(true);
     setSearchText(text);
-    if (!moviesAll.length) {
-      getAllMovies()
-        .then((data) => {
-          localStorage.setItem("allMovies", JSON.stringify(data));
-          filterAllMovies(data, text, isShortMovies);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error("Ошибка при загрузке фильмов:", error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+    if (text) {
+      if (!moviesAll.length) {
+        getAllMovies()
+          .then((data) => {
+            localStorage.setItem("allMovies", JSON.stringify(data));
+            filterAllMovies(data, text, isShortMovies);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error("Ошибка при загрузке фильмов:", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } else {
+        filterAllMovies(moviesAll, text, isShortMovies);
+        setIsLoading(false);
+      }
+      console.log(text);
+      localStorage.setItem("isShortMovie", isShortMovies);
+      localStorage.setItem("textSearch", text);
     } else {
-      filterAllMovies(moviesAll, text, isShortMovies);
-      setIsLoading(false);
+      localStorage.setItem("textSearch", text);
+      filterAllMovies([], text, isShortMovies);
     }
-    localStorage.setItem("isShortMovie", isShortMovies);
-    localStorage.setItem("textSearch", text);
   };
 
   const handleSaveClick = (movies) => {
