@@ -15,7 +15,7 @@ function SearchForm({ onSubmit, onCheckboxChange, isShortMovies }) {
 
   const handleSearch = (evt) => {
     evt.preventDefault();
-    onSubmit(values.lowerText, isShortMovies);
+    onSubmit(values.lowerText || "", isShortMovies);
   };
 
   useEffect(() => {

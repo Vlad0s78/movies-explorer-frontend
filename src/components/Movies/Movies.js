@@ -68,12 +68,13 @@ function Movies({ isLoggedIn, filterByName, myMovies, savedMovies, deleteMovies 
         filterAllMovies(moviesAll, text, isShortMovies);
         setIsLoading(false);
       }
-      console.log(text);
       localStorage.setItem("isShortMovie", isShortMovies);
       localStorage.setItem("textSearch", text);
     } else {
       localStorage.setItem("textSearch", text);
       filterAllMovies([], text, isShortMovies);
+      setIsLoading(false);
+      setSearchText("");
     }
   };
 

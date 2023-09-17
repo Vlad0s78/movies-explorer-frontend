@@ -30,6 +30,7 @@ function SavedMovies({ isLoggedIn, filterByName, savedMovies, deleteMovies }) {
       }
     } else {
       setFilteredMovies([]);
+      setSearchText("");
     }
   };
 

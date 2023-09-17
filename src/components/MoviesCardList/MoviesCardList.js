@@ -12,7 +12,7 @@ function MoviesCardList({ movies, onClick, savedMovies, searchText }) {
 
   const resultsMessage = () => {
     if (isSavedPage) {
-      return searchText ? "Ничего не найдено." : "Нужно ввести ключевое слово";
+      return searchText ? "Ничего не найдено." : savedMovies && savedMovies.length !== 0 ? "У вас нет сохраненных фильмов" : "Нужно ввести ключевое слово";
     } else {
       return searchText ? "Ничего не найдено." : "Нужно ввести ключевое слово";
     }

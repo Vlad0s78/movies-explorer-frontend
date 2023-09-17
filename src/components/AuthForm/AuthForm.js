@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import InputField from "../InputField/InputField";
 
 function AuthForm({ onSubmit, onChange, errors, isValid, values, errorGlobalMessage, resetErrorGlobalMessage, ...props }) {
-
   const location = useLocation();
   const isSignUpPage = location.pathname === "/signup";
+
+  const cleanupOnUnmount = () => {
+    resetErrorGlobalMessage();
+  };
+
+  useEffect(() => {
+    return cleanupOnUnmount;
+  }, []);
 
   return (
     <section className="auth">
@@ -15,7 +22,7 @@ function AuthForm({ onSubmit, onChange, errors, isValid, values, errorGlobalMess
           <img src={logo} alt="Логотип проекта" />
         </Link>
         <h1 className="auth__title">{props.title}</h1>
-        <form className="auth__form" onSubmit={onSubmit} >
+        <form className="auth__form" onSubmit={onSubmit}>
           <div className="auth__form-container">
             {isSignUpPage && (
               <InputField
