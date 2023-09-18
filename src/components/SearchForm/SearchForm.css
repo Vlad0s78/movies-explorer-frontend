@@ -63,6 +63,10 @@
   margin: 9px;
 }
 
+.search-form__button:disabled {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 1023px) {
   .search-form__container {
     width: calc(100% - 60px);
